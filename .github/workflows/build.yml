@@ -24,7 +24,12 @@ jobs:
             -alias upload \
             -dname "CN=Flauncher, OU=Dev, O=Flauncher, L=City, S=State, C=IN"
       - run: flutter pub get
-      - run: flutter build apk --release
+      - name: Build release APK
+        env:
+          SIGNING_KEYSTORE_PASSWORD: android
+          SIGNING_KEY_PASSWORD: android
+          SIGNING_KEY_ALIAS: upload
+        run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
           name: tv-launcher-apk
